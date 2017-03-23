@@ -40,10 +40,8 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
-                    send_message(sender_id, reply)
-
                     #send an image additionally
-                    send_text(sender_id,"imageTest")
+                    send_text(sender_id,reply)
                     send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -56,30 +54,6 @@ def webhook():
                     pass
 
     return "ok", 200
-
-
-def send_message(recipient_id, message_text):
-
-    log("sending message to {recipient}: {text}".format(recipient=recipient_id, text=message_text))
-
-    params = {
-        "access_token": os.environ["PAGE_ACCESS_TOKEN"]
-    }
-    headers = {
-        "Content-Type": "application/json"
-    }
-    data = json.dumps({
-        "recipient": {
-            "id": recipient_id
-        },
-        "message": {
-            "text": message_text
-        }
-    })
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages", params=params, headers=headers, data=data)
-    if r.status_code != 200:
-        log(r.status_code)
-        log(r.text)
 
 def send_text(recipient_id, text):                                                                                                                                                                             
     """send a text message to a recipient"""
@@ -122,6 +96,10 @@ def send(payload):
     r = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token="+os.environ["PAGE_ACCESS_TOKEN"],
         data = json.dumps(payload),
         headers = headers)
+    if r.status_code != 200:
+        log(r.status_code)
+        log(r.text)
+    
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)

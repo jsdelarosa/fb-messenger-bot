@@ -42,7 +42,7 @@ def webhook():
                     #send an image additionally
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
                     send_text(sender_id,reply)
-                    if send_text == "image" | "Image":
+                    if send_text == "image":
                         send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation

@@ -43,7 +43,7 @@ def webhook():
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
                     send_text(sender_id,reply)
 
-                    quick_replies = {'content_type': "text", 'title': "Choose 1"}, {'content_type': "text", 'title': "Choose 2"}
+                    quick_replies = {'content_type': "text", 'title': "Choose 1", 'payload': send_text(sender_id,"Hello World")}, {'content_type': "text", 'title': "Choose 2", 'payload': send_text(sender_id,"Hello World")}
                     quick_reply(sender_id,text, quick_replies)
                     
                     if send_text == "image":

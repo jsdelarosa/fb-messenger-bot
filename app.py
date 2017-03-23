@@ -43,7 +43,7 @@ def webhook():
                     send_message(sender_id, reply)
 
                     #send an image additionally
-                    send_message(sender_id,"imageTest")
+                    send_text(sender_id,"imageTest")
                     send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -89,6 +89,7 @@ def send_text(recipient_id, text):
         'recipient' : recipient,
         'message' : message
     }
+    send(payload)
 
 def send_image(recipient_id, image_url):
     """send an image to a recipient"""
@@ -112,6 +113,15 @@ def send_image(recipient_id, image_url):
         'recipient' : recipient,
         'message' : message
     }
+    send(payload)
+
+def send(payload):
+    """send a payload via the graph API"""
+
+    headers = {'Content-Type': 'application/json'}
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token="+PAGE_TOKEN,
+        data = json.dumps(payload),
+        headers = headers)
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)

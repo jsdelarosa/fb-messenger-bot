@@ -39,13 +39,14 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    text = event['message']['text']
-                    reply = "Code.Si ha recibido tu mensaje: "+text
-                    send_message(sender_id, reply)
+                    if "message" in event and event['message'].get("text","") != "":
+                        text = event['message']['text']
+                        reply = "Code.Si ha recibido tu mensaje: "+text
+                        send_message(sender_id, reply)
 
                     #send an image additionally
-                    sent_text(sender_id,"imageTest")
-                    send_image(sender_id,"https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
+                        sent_text(sender_id,"imageTest")
+                        send_image(sender_id,"https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass

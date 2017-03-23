@@ -40,7 +40,7 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
- #                  send_message(sender_id, reply)
+                    send_message(sender_id, reply)
 
                     #send an image additionally
                     send_text(sender_id,"imageTest")
@@ -81,6 +81,14 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
+def send_text(recipient_id, text):                                                                                                                                                                             
+    """send a text message to a recipient"""
+    recipient = { 'id' : recipient_id }
+    message = { 'text' : text }
+    payload = {
+        'recipient' : recipient,
+        'message' : message
+    }
 
 def send_image(recipient_id, image_url):
     """send an image to a recipient"""

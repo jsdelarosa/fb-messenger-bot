@@ -37,12 +37,16 @@ def webhook():
 
                     sender_id = messaging_event["sender"]["id"]        # the facebook ID of the person sending you the message
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
-                    message_text = messaging_event["message"]["text"]  # the message's text
+                    #message_text = messaging_event["message"]["text"]  # the message's text
 
                     #send an image additionally
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
                     send_text(sender_id,reply)
-                    if message_text == "image":
+
+                    quick_replies = {'content_type': "text", 'title': "Choose 1"}, {'content_type': "text", 'title': "Choose 2"}
+                    quick_reply(sender_id,text, quick_replies)
+                    
+                    if send_text == "image":
                         send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
@@ -84,6 +88,16 @@ def send_image(recipient_id, image_url):
     message = { 'attachment' : attachment }
 
     # now create the final payload with the recipient
+    payload = {
+        'recipient' : recipient,
+        'message' : message
+    }
+    send(payload)
+
+def quick_reply(recipient_id, text, quick_replies):
+    """send quick replies to interact"""
+    recipient = { 'id' : recipient_id }
+    message = { 'text' : text }
     payload = {
         'recipient' : recipient,
         'message' : message

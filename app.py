@@ -97,10 +97,10 @@ def send_image(recipient_id, image_url):
 def quick_reply(recipient_id, text, quick_replies):
     """send quick replies to interact"""
     recipient = { 'id' : recipient_id }
-    message = { 'text' : text }
+    message = { 'text' : text , qckrply: {quick_replies}}
     payload = {
         'recipient' : recipient,
-        'message' : message
+        'message' : message,
     }
     send(payload)
 

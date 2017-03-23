@@ -44,7 +44,7 @@ def webhook():
                     send_text(sender_id,reply)
 
                     quick_replies = {'content_type': "text", 'title': "Choose 1", 'payload': send_text(sender_id,"Hello World")}, {'content_type': "text", 'title': "Choose 2", 'payload': send_text(sender_id,"Hello World")}
-                    quick_reply(sender_id,text, quick_replies)
+                    quick_reply(sender_id, "Select option", quick_replies)
                     
                     if send_text == "image":
                         send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")

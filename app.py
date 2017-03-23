@@ -42,9 +42,6 @@ def webhook():
                     #send an image additionally
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
                     send_text(sender_id,reply)
-
-                    quick_replies = {'content_type': "text", 'title': "Choose 1", 'payload': send_text(sender_id,"Hello World")}, {'content_type': "text", 'title': "Choose 2", 'payload': send_text(sender_id,"Hello World")}
-                    quick_reply(sender_id, "Select option", quick_replies)
                     
                     if send_text == "image":
                         send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
@@ -91,16 +88,6 @@ def send_image(recipient_id, image_url):
     payload = {
         'recipient' : recipient,
         'message' : message
-    }
-    send(payload)
-
-def quick_reply(recipient_id, text, quick_replies):
-    """send quick replies to interact"""
-    recipient = { 'id' : recipient_id }
-    message = { 'text' : text , qckrply: {quick_replies}}
-    payload = {
-        'recipient' : recipient,
-        'message' : message,
     }
     send(payload)
 

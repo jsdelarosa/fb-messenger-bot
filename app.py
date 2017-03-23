@@ -40,7 +40,7 @@ def webhook():
                     message_text = messaging_event["message"]["text"]  # the message's text
 
                     reply = "Code.Si ha recibido tu mensaje: "+message_text
-                    send_message(sender_id, reply)
+ #                  send_message(sender_id, reply)
 
                     #send an image additionally
                     send_text(sender_id,"imageTest")

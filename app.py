@@ -44,7 +44,7 @@ def webhook():
 
                     #send an image additionally
                     message_text(sender_id,"imageTest")
-                    send_image(sender_id,"https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
+                    send_image(sender_id, "https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass

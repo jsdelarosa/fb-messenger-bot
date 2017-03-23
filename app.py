@@ -119,7 +119,7 @@ def send(payload):
     """send a payload via the graph API"""
 
     headers = {'Content-Type': 'application/json'}
-    r = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token="+PAGE_TOKEN,
+    r = requests.post("https://graph.facebook.com/v2.6/me/messages?access_token="+os.environ["PAGE_ACCESS_TOKEN"],
         data = json.dumps(payload),
         headers = headers)
 

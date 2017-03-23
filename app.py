@@ -17,7 +17,7 @@ def verify():
             return "Verification token mismatch", 403
         return request.args["hub.challenge"], 200
 
-    return "Hello world", 200
+    return "Hello world" + "!", 200
 
 
 @app.route('/', methods=['POST'])
@@ -39,7 +39,13 @@ def webhook():
                     recipient_id = messaging_event["recipient"]["id"]  # the recipient's ID, which should be your page's facebook ID
                     message_text = messaging_event["message"]["text"]  # the message's text
 
-                    send_message(sender_id, "got it, thanks!")
+                    text = event['message']['text']
+                    reply = "Code.Si ha recibido tu mensaje: "+text
+                    send_message(sender_id, reply)
+
+                    #send an image additionally
+                    sent_text(sender_id,"imageTest")
+                    send_image(sender_id,"https://comlounge.net/wp-content/uploads/2016/02/cropped-Logo_COMlounge.png")
 
                 if messaging_event.get("delivery"):  # delivery confirmation
                     pass
@@ -76,6 +82,29 @@ def send_message(recipient_id, message_text):
         log(r.status_code)
         log(r.text)
 
+
+def send_image(recipient_id, image_url):
+    """send an image to a recipient"""
+
+    recipient = { 'id' : recipient_id }
+
+    # create an image object
+    image = { 'url' : image_url }
+
+    # add the image object to an attachment of type "image"
+    attachment = {
+        'type'      : 'image',
+        'payload'   : image
+    }
+
+    # add the attachment to a message instead of "text"
+    message = { 'attachment' : attachment }
+
+    # now create the final payload with the recipient
+    payload = {
+        'recipient' : recipient,
+        'message' : message
+    }
 
 def log(message):  # simple wrapper for logging to stdout on heroku
     print str(message)
